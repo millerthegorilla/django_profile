@@ -3,7 +3,15 @@ a django app that provides basic profile functionality, as a foundation for othe
 
 ## install
 pip install git+https://github.com/millerthegorilla/django_profile.git#egg=django_profile
-
+add django_profile to your installed apps.
+```python
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    ...
+    'django_profile',
+]
+```
 ## settings
 You will need to set the site domain in the admin app, and also the settings.BASE_HTML for the statement `{% extends BASE_HTML %}` in the templates where BASE_HTML comes from the context_processor.
 
