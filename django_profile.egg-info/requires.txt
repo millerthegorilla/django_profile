@@ -1,4 +1,12 @@
-django-crispy-forms==1.11.2
-django-email-verification==0.1.0
-django-password-validators==1.4.0
-django-recaptcha==2.0.6
+
+[:python_version == "0.18.0"]
+fuzzywuzzy
+
+[:python_version == "1.11.2"]
+django-crispy-forms
+
+[:python_version == "2.0.6"]
+django-recaptcha
+
+[:python_version == "5 0.6"]
+crispy-bootstrap
