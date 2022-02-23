@@ -35,10 +35,9 @@ Finally, you can make the app abstract if you are subclassing it in another app.
 ABSTRACTPROFILE = True
 ```
 
-
 ## dependencies
 git+https://github.com/millerthegorilla/django_users.git#egg=django_users
 django-crispy-forms==1.11.2
-crispy-bootstrap==5 0.6
+crispy-bootstrap==5.0.6
 fuzzywuzzy==0.18.0
 django-recaptcha==2.0.6
