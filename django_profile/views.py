@@ -27,6 +27,11 @@ class ProfileUpdate(mixins.LoginRequiredMixin, generic.edit.UpdateView):
     def get_object(self) -> profile_models.Profile:
         return self.model.objects.get(profile_user_id=self.request.user.id)
 
+    def get_context_data(self, **kwargs) -> dict:
+        user_form = self.user_form_class
+        form = self.form_class
+        return {'form': form, 'user_form': user_form }
+
     def form_valid(self, form: forms.ModelForm) -> typing.Union[http.HttpResponse, http.HttpResponseRedirect]: 
         user_form = self.user_form_class(self.request.POST)
         user_form.initial = {'username': self.request.user.username, # type: ignore
