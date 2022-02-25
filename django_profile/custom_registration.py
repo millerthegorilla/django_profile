@@ -39,6 +39,7 @@ class CustomUserCreation(auth_forms.UserCreationForm):
         return displayname
 
     def clean_email(self) -> str:
+        breakpoint()
         email = self.cleaned_data['email']
         try:
             auth_models.User.objects.get(email=email)

@@ -28,7 +28,7 @@ class ProfileUpdate(mixins.LoginRequiredMixin, generic.edit.UpdateView):
         return self.model.objects.get(profile_user_id=self.request.user.id)
 
     def get_context_data(self, **kwargs) -> dict:
-        user_form = self.user_form_class()
+        user_form = self.user_form_class(username=self.request.user.username) # passing in username as hack
         user_form.initial = {'username': self.request.user.username, # type: ignore
                              'email': self.request.user.email,
                              'first_name': self.request.user.first_name,
@@ -50,7 +50,12 @@ class ProfileUpdate(mixins.LoginRequiredMixin, generic.edit.UpdateView):
         # there is probably a saner way to have two forms coexisting on the same page,
         # but its early days.
         user_form.errors.clear()
-        if not user_form.is_valid():
+        user_form.is_valid()
+        try:
+            user_form.errors.pop('username')
+        except KeyError:
+            pass
+        if len(user_form.errors):
             return shortcuts.render(
                 self.request,
                 self.template_name,
@@ -62,6 +67,15 @@ class ProfileUpdate(mixins.LoginRequiredMixin, generic.edit.UpdateView):
         self.request.user.save()
         return shortcuts.render(self.request, self.template_name, {'form': form,
         'user_form': user_form})
+
+    def form_invalid(self, form, **kwargs):
+        user_form = self.user_form_class(self.request.POST)
+        user_form.initial = {'username': self.request.user.username, # type: ignore
+                             'email': self.request.user.email,
+                             'first_name': self.request.user.first_name,
+                             'last_name': self.request.user.last_name}
+        user_form.errors.pop('username')
+        return shortcuts.render(self.request, self.template_name, { 'form' : form, 'user_form': user_form })
 
 
 # NEEDED FOR ADDITION OF DISPLAY_NAME

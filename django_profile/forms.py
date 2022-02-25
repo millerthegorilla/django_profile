@@ -41,31 +41,38 @@ class UserProfile(forms.ModelForm):
 
     def clean_username(self, *args, **kwargs) -> str:
         username = self.cleaned_data['username']
-        if username != self.initial['username']:
+        try:
+            initial_username = self.initial['username']
+        except KeyError:
+            initial_username = ""
+        if username != initial_username:
             try:
-                get_user_model().objects.get(username=username)
-            except get_user_model().DoesNotExist:
-                return username
+                if get_user_model().objects.filter(username=username).exists():
+                    self.valid = False
+                    self.add_error('username', 'Error, That username already exists!')
             except db.IntegrityError as e:
                 error_message = e.__cause__
                 logger.error(error_message)
-            self.valid = False
-            self.add_error('username', 'Error, That username already exists!')
+        else:
+            self.valid = True
         return username
 
     def clean_email(self) -> str:
         email = self.cleaned_data['email']
-        if email != self.initial['email']:
-            try:
-                get_user_model().User.objects.get(email=email)
-            except get_user_model().User.DoesNotExist:
-                return email
-            except db.IntegrityError as e:
-                error_message = e.__cause__
-                logger.error(error_message)
-            self.valid = False
-            self.add_error('email', 'Error! That email already exists!')
-        return email
+        try:
+            if email != self.initial['email']:
+                try:
+                    if not get_user_model().User.objects.filter(email=email).exists():
+                        return email
+                    else:
+                        self.valid = False
+                        self.add_error('email', 'Error! That email already exists!')
+                except db.IntegrityError as e:
+                    error_message = e.__cause__
+                    logger.error(error_message)
+            return email
+        except KeyError:
+            return email
 
     class Meta:
         model = get_user_model()
