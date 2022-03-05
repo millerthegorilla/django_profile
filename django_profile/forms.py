@@ -13,12 +13,6 @@ from . import models as profile_models
 logger = logging.getLogger('django_artisan')
 
 class UserProfile(forms.ModelForm):
-    # def clean_username(self, *args, **kwargs):
-    #     username = self.cleaned_data['username']
-    #     if User.objects.filter(username=username):
-    #         self.add_error('username', 'Error, That username already exists!')
-    #     return username
-
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         try:
@@ -39,23 +33,24 @@ class UserProfile(forms.ModelForm):
             bootstrap5.FloatingField('last_name'),
         )
 
-    def clean_username(self, *args, **kwargs) -> str:
-        username = self.cleaned_data['username']
-        try:
-            initial_username = self.initial['username']
-        except KeyError:
-            initial_username = ""
-        if username != initial_username:
-            try:
-                if get_user_model().objects.filter(username=username).exists():
-                    self.valid = False
-                    self.add_error('username', 'Error, That username already exists!')
-            except db.IntegrityError as e:
-                error_message = e.__cause__
-                logger.error(error_message)
-        else:
-            self.valid = True
-        return username
+    # def clean_username(self, *args, **kwargs) -> str:
+    #     breakpoint()
+    #     username = self.cleaned_data['username']
+    #     try:
+    #         initial_username = self.initial['username']
+    #     except KeyError:
+    #         initial_username = ""
+    #     if username != initial_username:
+    #         try:
+    #             if get_user_model().objects.filter(username=username).exists():
+    #                 self.valid = False
+    #                 self.add_error('username', 'Error, That username already exists!')
+    #         except db.IntegrityError as e:
+    #             error_message = e.__cause__
+    #             logger.error(error_message)
+    #     else:
+    #         self.valid = True
+    #     return username
 
     def clean_email(self) -> str:
         email = self.cleaned_data['email']
@@ -77,6 +72,7 @@ class UserProfile(forms.ModelForm):
     class Meta:
         model = get_user_model()
         fields = ['username', 'email', 'first_name', 'last_name']
+        exclude = ['profile_user']
 
 
 class Profile(forms.ModelForm):
