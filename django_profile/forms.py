@@ -17,8 +17,6 @@ class UserProfile(forms.ModelForm):
         super().__init__(*args, **kwargs)
         try:
             self.initial = kwargs['initial']
-            if self.initial:
-                breakpoint()   # TODO
         except KeyError:
             pass
         for fieldname in ['username', 'email']:
