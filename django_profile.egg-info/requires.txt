@@ -1,1 +1,1 @@
-django_users@ git+https://github.com/millerthegorilla/django_users
+django_users@ git+https://github.com/millerthegorilla/django_users@main
