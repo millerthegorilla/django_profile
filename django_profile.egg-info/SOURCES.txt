@@ -20,6 +20,13 @@ django_profile.egg-info/SOURCES.txt
 django_profile.egg-info/dependency_links.txt
 django_profile.egg-info/requires.txt
 django_profile.egg-info/top_level.txt
+django_profile/__pycache__/__init__.cpython-310.pyc
+django_profile/__pycache__/admin.cpython-310.pyc
+django_profile/__pycache__/apps.cpython-310.pyc
+django_profile/__pycache__/custom_registration.cpython-310.pyc
+django_profile/__pycache__/forms.cpython-310.pyc
+django_profile/__pycache__/models.cpython-310.pyc
+django_profile/__pycache__/views.cpython-310.pyc
 django_profile/templates/django_profile/base.html
 django_profile/templates/django_profile/profile_update_form.html
 django_profile/templates/fields/profile_file_input.html

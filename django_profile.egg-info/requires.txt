@@ -1,13 +1,1 @@
 django_users@ git+https://github.com/millerthegorilla/django_users
-
-[:python_version == "0.18.0"]
-fuzzywuzzy
-
-[:python_version == "1.11.2"]
-django-crispy-forms
-
-[:python_version == "2.0.6"]
-django-recaptcha
-
-[:python_version == "5.0.6"]
-crispy-bootstrap

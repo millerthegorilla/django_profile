@@ -1,7 +1,7 @@
 Metadata-Version: 2.1
 Name: django-profile
 Version: 1.0
-Summary: A Django app that extends the django_users app, and adds a profile and templates for forms for auth user fields as well as the profile.
+Summary: "A Django app that extends the django_users app, and adds a profile and templates for forms for auth user fields as well as the profile."
 Home-page: https://github.com/millerthegorilla/django_profile
 Author: James Miller
 Author-email: jamesstewartmiller@gmail.com
