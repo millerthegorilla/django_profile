@@ -1,5 +1,6 @@
 from django import conf
 from django.contrib import admin
+
 from . import models as profile_models
 
 # Register your models here.

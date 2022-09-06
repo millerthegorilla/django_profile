@@ -1,0 +1,3 @@
+[bandit]
+exclude = tests,settings.py
+tests = B201,B301

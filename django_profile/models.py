@@ -1,15 +1,17 @@
 from django import conf, dispatch
+from django.contrib.auth import models as auth_models
 from django.db import models
 from django.db.models import signals
-from django.contrib.auth import models as auth_models
 
 
 class Profile(models.Model):
     """
-        user profile
+    user profile
     """
+
     profile_user: models.OneToOneField = models.OneToOneField(
-        auth_models.User, on_delete=models.CASCADE, related_name='profile')
+        auth_models.User, on_delete=models.CASCADE, related_name="profile"
+    )
 
     def __str__(self) -> str:
         return str(self._meta.get_fields(include_hidden=True))
@@ -27,13 +29,16 @@ class Profile(models.Model):
 
 
 @dispatch.receiver(models.signals.post_save, sender=auth_models.User)
-def create_user_profile(sender:auth_models.User, instance:auth_models.User, created:bool, **kwargs) -> None:
+def create_user_profile(
+    sender: auth_models.User, instance: auth_models.User, created: bool, **kwargs
+) -> None:
     if created:
         Profile.objects.create(profile_user=instance)
     try:
         instance.profile.save()
     except Profile.DoesNotExist:
         pass
+
 
 signals.post_save.connect(create_user_profile, sender=auth_models.User)
 

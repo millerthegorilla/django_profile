@@ -8,7 +8,7 @@ add django_profile to your installed apps.
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
-    ...
+    '[...]',
     'django_profile',
 ]
 ```
