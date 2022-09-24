@@ -1,2 +1,2 @@
 django>=4.0.1
-django_users@ git+ssh://git@github.com/millerthegorilla/django_users@testing#egg=django_users
+django_users@ git+ssh://git@github.com/millerthegorilla/django_users#egg=django_users
