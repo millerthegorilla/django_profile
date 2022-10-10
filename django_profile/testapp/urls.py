@@ -26,4 +26,5 @@ urlpatterns = [
     path("users/accounts/", include(django_profile_urls)),
     path("users/accounts/", include(django_users_urls)),
     path("users/accounts/", include("django.contrib.auth.urls")),
+    path("__debug__/", include("debug_toolbar.urls")),
 ]

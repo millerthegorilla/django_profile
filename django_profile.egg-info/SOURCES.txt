@@ -22,6 +22,7 @@ django_profile.egg-info/top_level.txt
 django_profile/__pycache__/__init__.cpython-310.pyc
 django_profile/__pycache__/admin.cpython-310.pyc
 django_profile/__pycache__/apps.cpython-310.pyc
+django_profile/__pycache__/context_processors.cpython-310.pyc
 django_profile/__pycache__/custom_registration.cpython-310.pyc
 django_profile/__pycache__/forms.cpython-310.pyc
 django_profile/__pycache__/models.cpython-310.pyc

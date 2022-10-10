@@ -46,9 +46,11 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
     "captcha",
     "django_email_verification",
+    "debug_toolbar",
 ]
 
 MIDDLEWARE = [
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -74,7 +76,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "django_users.context_processors.base_html",
+                "django_profile.context_processors.base_html",
                 "django_users.context_processors.siteName",
             ],
         },
@@ -111,6 +113,12 @@ AUTH_PASSWORD_VALIDATORS = [
     # },
 ]
 
+# debug toolbar
+INTERNAL_IPS = [
+    # ...
+    "127.0.0.1",
+    # ...
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
