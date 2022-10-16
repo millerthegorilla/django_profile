@@ -54,7 +54,7 @@ def active_user(user):
 
 @pytest.fixture()
 def logged_in_page(browser, active_user, db, user_details):
-    browser.visit(browser.domain + reverse("login"))
+    browser.visit(browser.domain + reverse("django_users:login"))
     browser.type("#id_username", active_user.username)
     browser.type("#id_password", user_details.password)
     browser.click('button[type="submit"]')

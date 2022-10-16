@@ -61,8 +61,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "django_profile.testapp.urls"
 STATIC_URL = "/static/"
-LOGIN_URL = urls.reverse_lazy("login")
-LOGIN_REDIRECT_URL = urls.reverse_lazy("profile")
+LOGIN_URL = urls.reverse_lazy("django_users:login")
+LOGIN_REDIRECT_URL = urls.reverse_lazy("django_users:profile")
 
 TEMPLATES = [
     {

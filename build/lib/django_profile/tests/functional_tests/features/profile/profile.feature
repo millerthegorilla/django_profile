@@ -13,7 +13,7 @@ Feature: Profile page
         When User visits the profile page
         Then User is redirected to login page
 
-
+    @locutus
     Scenario: Updating profile fields
         Given User is logged in
         When User visits the profile page

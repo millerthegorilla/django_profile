@@ -1,4 +1,4 @@
-'"""Profile page feature tests."""
+"""Profile page feature tests."""
 from pytest_bdd import given, scenarios, then, when
 
 

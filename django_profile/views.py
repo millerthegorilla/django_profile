@@ -1,4 +1,5 @@
 from django import http, shortcuts, urls
+from django.contrib import auth
 from django.contrib.auth import mixins
 from django.views import generic
 
