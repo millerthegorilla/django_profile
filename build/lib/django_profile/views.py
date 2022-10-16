@@ -1,12 +1,12 @@
 from django import http, shortcuts, urls
-from django.contrib import auth
+from django.contrib.auth import mixins
 from django.views import generic
 
 from . import forms as profile_forms
 from . import models as profile_models
 
 
-class ProfileUpdate(auth.mixins.LoginRequiredMixin, generic.edit.UpdateView):
+class ProfileUpdate(mixins.LoginRequiredMixin, generic.edit.UpdateView):
     form_class = profile_forms.Profile
     user_form_class = profile_forms.UserProfile
     model = profile_models.Profile

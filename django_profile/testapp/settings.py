@@ -65,14 +65,12 @@ STATIC_URL = "/static/"
 LOGIN_URL = urls.reverse_lazy("login")
 LOGIN_REDIRECT_URL = urls.reverse_lazy("profile")
 
-from django_users import templates as user_templates
-
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
             os.path.join(BASE_DIR, "templates"),
-            os.path.abspath(user_templates.__path__._path[0]),
+            # os.path.abspath(user_templates.__path__._path[0]),
         ],
         "APP_DIRS": True,
         "OPTIONS": {

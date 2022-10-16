@@ -16,7 +16,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from django_email_verification import urls as email_urls  # include the urls
-from django_users import urls as django_users_urls
 
 from django_profile import urls as django_profile_urls
 
@@ -24,7 +23,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("email/", include(email_urls)),
     path("", include(django_profile_urls)),
-    path("", include(django_users_urls)),
     # path("users/accounts/", include("django.contrib.auth.urls")),
     path("__debug__/", include("debug_toolbar.urls")),
 ]
