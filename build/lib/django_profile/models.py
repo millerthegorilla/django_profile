@@ -21,6 +21,7 @@ class Profile(models.Model):
             abstract = conf.settings.ABSTRACTPROFILE
         except AttributeError:
             abstract = False
+        app_label = "django_profile"
 
 
 """
