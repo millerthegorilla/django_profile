@@ -23,8 +23,8 @@ from django_profile import urls as django_profile_urls
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("email/", include(email_urls)),
-    path("users/accounts/", include(django_profile_urls)),
-    path("users/accounts/", include(django_users_urls)),
-    path("users/accounts/", include("django.contrib.auth.urls")),
+    path("", include(django_profile_urls)),
+    path("", include(django_users_urls)),
+    # path("users/accounts/", include("django.contrib.auth.urls")),
     path("__debug__/", include("debug_toolbar.urls")),
 ]
