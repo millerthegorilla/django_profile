@@ -63,6 +63,7 @@ ROOT_URLCONF = "django_profile.testapp.urls"
 STATIC_URL = "/static/"
 LOGIN_URL = urls.reverse_lazy("django_users:login")
 LOGIN_REDIRECT_URL = urls.reverse_lazy("django_users:profile")
+LOGOUT_REDIRECT_URL = urls.reverse_lazy("django_users:login")
 
 TEMPLATES = [
     {
@@ -92,7 +93,10 @@ TEMPLATES = [
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": "mem_db",
+        "NAME": "db.sqlite3",
+        "TEST": {
+            "NAME": "testdb.sqlite3",
+        },
     }
 }
 
