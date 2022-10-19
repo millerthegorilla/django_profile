@@ -2,7 +2,6 @@ import os
 from collections import OrderedDict
 import django
 from django.apps import apps
-from django.core import management
 from django.conf import settings
 
 from django_users import templates as user_templates

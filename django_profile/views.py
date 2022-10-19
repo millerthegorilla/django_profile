@@ -21,52 +21,46 @@ class ProfileUpdate(mixins.LoginRequiredMixin, generic.edit.UpdateView):
     def get_object(self) -> profile_models.Profile:
         return self.model.objects.get(profile_user_id=self.request.user.id)
 
-    def populate_initial_user_form(self, user):
+    def populate_initial_user_form(self):
         return {
-            "username": user.username,
-            "email": user.email,
-            "first_name": user.first_name,
-            "last_name": user.last_name,
+            "username": self.request.user.username,
+            "email": self.request.user.email,
+            "first_name": self.request.user.first_name,
+            "last_name": self.request.user.last_name,
         }
 
     def get_context_data(self, **kwargs) -> dict:
-        user_form = self.user_form_class(
-            initial=self.populate_initial_user_form(self.request.user)
-        )
-        form = self.form_class()
-        form.initial = {"profile_user": self.request.user}
+        user_form = self.user_form_class(initial=self.populate_initial_user_form())
+        form = self.form_class({"profile_user": self.request.user})
         return {"form": form, "user_form": user_form}
 
     def post(self, request: http.HttpRequest):
-        user_form = self.user_form_class(request.POST)
-        user_form.initial.update(self.populate_initial_user_form(request.user))
-        user_form.is_valid()
-        try:
-            user_form.errors.pop("username")
-        except KeyError:
-            pass
-        # next two lines not really necessary unless view is subclassed
-        form = self.form_class(request.POST)
-        form.is_valid()
-        if len(user_form.errors) or len(form.errors):
+        form = self.form_class(request.POST, initial=request.user.profile.__dict__)
+        user_form = self.user_form_class(
+            request.POST, initial=self.populate_initial_user_form()
+        )
+        if len(user_form["username"].errors):
+            user_form.errors["username"][:] = (
+                value
+                for value in user_form.errors["username"]
+                if value != "A user with that username already exists."
+            )
+            if not len(user_form.errors["username"]):
+                del user_form.errors["username"]
+
+        if not form.errors and form.fields:
+            fm = form.save(commit=False)
+            fm.profile_user = request.user
+            fm.save()
+        if not user_form.errors:
+            uf = user_form.save(commit=False)
+            uf.id = request.user.id
+            uf.save(update_fields=[x for x in user_form.cleaned_data.keys()])
+        if user_form.errors or form.errors:
             return shortcuts.render(
                 request,
                 self.template_name,
                 context={"form": form, "user_form": user_form},
             )
-        if len(user_form.changed_data):
-            user = auth.get_user_model().objects.get(
-                username=user_form.initial["username"]
-            )
-            for change in user_form.changed_data:
-                setattr(user, change, user_form[change].value())
-            user.save(update_fields=user_form.changed_data)
-        # currently profile doesn't have anything that can be changed,
-        # but the view may be subclassed
-        if len(form.changed_data):
-            profile = self.model.objects.get(profile_user=request.user)
-            for change in form.changed_data:
-                setattr(profile, change, form[change].value())
-            profile.save(update_fields=form.changed_data)
 
         return shortcuts.redirect(self.success_url)

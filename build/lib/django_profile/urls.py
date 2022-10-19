@@ -4,9 +4,5 @@ from . import urls_app as profile_urls
 
 urlpatterns = [
     path("", include(profile_urls, namespace="django_profile")),
-    path(
-        "",
-        include(django_users_urls, namespace="django_users"),
-        {"namespace": "django_users"},
-    ),
+    path("", include(django_users_urls, namespace="django_users")),
 ]

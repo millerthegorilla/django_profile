@@ -24,10 +24,8 @@ django_profile/__pycache__/__init__.cpython-310.pyc
 django_profile/__pycache__/admin.cpython-310.pyc
 django_profile/__pycache__/apps.cpython-310.pyc
 django_profile/__pycache__/context_processors.cpython-310.pyc
-django_profile/__pycache__/custom_registration.cpython-310.pyc
 django_profile/__pycache__/forms.cpython-310.pyc
 django_profile/__pycache__/models.cpython-310.pyc
-django_profile/__pycache__/tests.cpython-310.pyc
 django_profile/__pycache__/urls.cpython-310.pyc
 django_profile/__pycache__/urls_app.cpython-310.pyc
 django_profile/__pycache__/views.cpython-310.pyc
@@ -48,9 +46,7 @@ django_profile/testapp/__pycache__/__init__.cpython-310.pyc
 django_profile/testapp/__pycache__/settings.cpython-310.pyc
 django_profile/testapp/__pycache__/urls.cpython-310.pyc
 django_profile/tests/conftest.py
-django_profile/tests/__pycache__/__init__.cpython-310.pyc
 django_profile/tests/__pycache__/conftest.cpython-310-pytest-7.1.2.pyc
-django_profile/tests/functional_tests/__pycache__/conftest.cpython-310-pytest-7.1.2.pyc
 django_profile/tests/functional_tests/features/conftest.py
 django_profile/tests/functional_tests/features/__pycache__/conftest.cpython-310-pytest-7.1.2.pyc
 django_profile/tests/functional_tests/features/profile/profile.feature
