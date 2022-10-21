@@ -7,8 +7,6 @@ from django.contrib.auth import get_user_model
 
 from . import models as profile_models
 
-# TODO: need to setup clamav.conf properly
-
 
 logger = logging.getLogger("django_artisan")
 

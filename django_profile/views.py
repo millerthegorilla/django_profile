@@ -1,7 +1,7 @@
 from django import http, shortcuts, urls
-from django.contrib import auth
 from django.contrib.auth import mixins
 from django.views import generic
+from django.forms.models import model_to_dict
 
 from . import forms as profile_forms
 from . import models as profile_models
@@ -30,15 +30,16 @@ class ProfileUpdate(mixins.LoginRequiredMixin, generic.edit.UpdateView):
         }
 
     def get_context_data(self, **kwargs) -> dict:
-        user_form = self.user_form_class(initial=self.populate_initial_user_form())
+        user_form = self.user_form_class(initial=model_to_dict(self.request.user))
         form = self.form_class({"profile_user": self.request.user})
         return {"form": form, "user_form": user_form}
 
     def post(self, request: http.HttpRequest):
         form = self.form_class(request.POST, initial=request.user.profile.__dict__)
         user_form = self.user_form_class(
-            request.POST, initial=self.populate_initial_user_form()
+            request.POST, initial=model_to_dict(request.user)
         )
+
         if len(user_form["username"].errors):
             user_form.errors["username"][:] = (
                 value
@@ -52,10 +53,12 @@ class ProfileUpdate(mixins.LoginRequiredMixin, generic.edit.UpdateView):
             fm = form.save(commit=False)
             fm.profile_user = request.user
             fm.save()
+
         if not user_form.errors:
             uf = user_form.save(commit=False)
             uf.id = request.user.id
             uf.save(update_fields=[x for x in user_form.cleaned_data.keys()])
+
         if user_form.errors or form.errors:
             return shortcuts.render(
                 request,

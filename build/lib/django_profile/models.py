@@ -1,7 +1,6 @@
 from django import conf, dispatch
 from django.contrib.auth import models as auth_models
 from django.db import models
-from django.db.models import signals
 
 
 class Profile(models.Model):
@@ -39,12 +38,3 @@ def create_user_profile(
         instance.profile.save()
     except Profile.DoesNotExist:
         pass
-
-
-signals.post_save.connect(create_user_profile, sender=auth_models.User)
-
-
-# @dispatch.receiver(models.signals.post_save, sender=auth_models.User)
-# def save_user_profile(sender:auth_models.User, instance:auth_models.User, **kwargs) -> None:
-#     if hasattr(instance, 'profile'):
-#         instance.profile.save()
