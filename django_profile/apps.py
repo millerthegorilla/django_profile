@@ -1,7 +1,7 @@
 import os
 from collections import OrderedDict
-import django
-from django.apps import apps
+
+from django.apps import apps, AppConfig
 from django.conf import settings
 
 from django_users import templates as user_templates
@@ -12,7 +12,7 @@ APPS = [
 ]
 
 
-class DjangoProfileConfig(django.apps.AppConfig):
+class DjangoProfileConfig(AppConfig):
     """idea taken from
     https://stackoverflow.com/questions/24027901/dynamically-loading-django-apps-at-runtime/57897422#57897422"""  # noqa: E501
 
@@ -21,7 +21,6 @@ class DjangoProfileConfig(django.apps.AppConfig):
 
     def ready(self) -> None:
         for app in APPS:
-            breakpoint()
             if app["name"] not in settings.INSTALLED_APPS:
                 settings.INSTALLED_APPS += (app["name"],)
                 apps.app_configs = OrderedDict()
