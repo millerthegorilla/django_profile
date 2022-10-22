@@ -8,7 +8,7 @@ from django.conf import settings
 from django_users import templates as user_templates
 
 
-APPS = [
+my_apps = [
     {"name": "django_users.apps.DjangoUsersConfig", "templates": user_templates},
 ]
 
@@ -21,12 +21,14 @@ class DjangoProfileConfig(AppConfig):
     name = "django_profile"
 
     def ready(self) -> None:
-        for app in APPS:
+        global my_apps
+        for app in my_apps:
             if app["name"] not in settings.INSTALLED_APPS:
-                theapp = importlib.import_module(app["name"])
-                from theapp import apps as theapp_apps
-
-                theapp_apps.ready()
+                theapp = importlib.import_module(app["name"] + ".apps")
+                try:
+                    my_apps += theapp.my_apps
+                except AttributeError:
+                    pass
                 settings.INSTALLED_APPS += (app["name"],)
                 apps.app_configs = OrderedDict()
                 apps.apps_ready = apps.models_ready = apps.loading = apps.ready = False
