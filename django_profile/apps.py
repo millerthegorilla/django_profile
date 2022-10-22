@@ -9,7 +9,7 @@ from django_users import templates as user_templates
 
 
 my_apps = [
-    {"name": "django_users.apps.DjangoUsersConfig", "templates": user_templates},
+    {"name": "django_users", "templates": user_templates},
 ]
 
 
