@@ -4,6 +4,7 @@ from collections import OrderedDict
 
 from django.apps import apps, AppConfig
 from django.conf import settings
+from django.core.management import call_command
 
 from django_users import templates as user_templates
 
@@ -22,6 +23,7 @@ class DjangoProfileConfig(AppConfig):
 
     def ready(self) -> None:
         global my_apps
+        sdir = False
         for app in my_apps:
             if app["name"] not in settings.INSTALLED_APPS:
                 settings.INSTALLED_APPS += (app["name"],)
@@ -37,6 +39,7 @@ class DjangoProfileConfig(AppConfig):
                     importlib.import_module(app["name"]).__path__[0] + "/static/"
                 )
                 if os.path.isdir(static):
+                    sdir = True
                     settings.STATICFILES_DIRS += [static]
                 try:
                     theapp = importlib.import_module(app["name"] + ".apps")
@@ -44,3 +47,5 @@ class DjangoProfileConfig(AppConfig):
                     theapp.setup_apps()
                 except (ModuleNotFoundError, AttributeError):
                     pass
+        if sdir:
+            call_command("collectstatic", verbosity=0, interactive=False)
