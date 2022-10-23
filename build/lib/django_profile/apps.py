@@ -35,8 +35,7 @@ class DjangoProfileConfig(AppConfig):
                     )
                 settings.STATICFILES_DIRS += [
                     os.path.abspath(
-                        importlib.import_module(app["name"]).__path__.path[0]
-                        + "/static/"
+                        importlib.import_module(app["name"]).__path__[0] + "/static/"
                     )
                 ]
                 try:
