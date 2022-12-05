@@ -29,6 +29,9 @@ class Profile(models.Model):
 
 
 @dispatch.receiver(models.signals.post_save, sender=auth_models.User)
+def create_user_profile(
+    sender: auth_models.User, instance: auth_models.User, created: bool, **kwargs
+) -> None:    
     if created:
         Profile.objects.create(profile_user=instance)
     try:
