@@ -3,11 +3,11 @@ Name: django-profile
 Version: 0.0.1
 Summary: A simple django app that includes basic user auth
 Home-page: https://github.com/millerthegorilla/django_profile
+Download-URL: 
 Author: James Miller
 Author-email: jamesstewartmiller@gmail.com
 License: MIT
 Keywords: django,django_profile,user app
-Platform: UNKNOWN
 Classifier: DevelopmentStatus::2-Pre-Alpha
 Classifier: Framework::Django CMS
 Classifier: Framework::Django::4.0
@@ -58,4 +58,3 @@ django-crispy-forms==1.11.2
 crispy-bootstrap==5.0.6
 fuzzywuzzy==0.18.0
 django-recaptcha==2.0.6
-

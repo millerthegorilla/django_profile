@@ -1,6 +1,6 @@
 django_profile/__pycache__/
 django_profile/*/__pycache__/
-venv
-venv/**/*
+venv_django_profile
+venv_django_profile/**/*
 db.sqlite3
 */**/*pyc
